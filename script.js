@@ -1,36 +1,34 @@
-function showMessage(text) {
-  alert(text);
-}
-
-function openCreator() {
-  document.getElementById("creatorModal").classList.add("show");
-}
-
-function closeCreator() {
-  document.getElementById("creatorModal").classList.remove("show");
-}
-
-function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({
-    behavior: "smooth"
-  });
-}
-
 function createCharacter() {
-  const name = document.getElementById("characterName").value;
-  const personality = document.getElementById("personality").value;
+  const name = document.getElementById("characterName").value.trim();
+  const personality = document.getElementById("personality").value.trim();
+  const backstory = document.getElementById("backstory").value.trim();
 
   if (name === "") {
-    alert("Please enter a name.");
+    alert("Please enter a name for your character.");
     return;
   }
 
-  alert("✨ " + name + " is ready to be created!\n\nPersonality: " + personality);
-  closeCreator();
-}
+  // Save the character information
+  localStorage.setItem("companionName", name);
+  localStorage.setItem("companionPersonality", personality);
+  localStorage.setItem("companionBackstory", backstory);
 
-document.getElementById("creatorModal").addEventListener("click", function(event) {
-  if (event.target === this) {
-    closeCreator();
+  alert("✨ " + name + " has been created!");
+
+  closeCreator();
+
+  // Show the character on the main page
+  const characterTitle = document.querySelector(".character-info h2");
+  const characterDescription = document.querySelector(".character-info p");
+
+  if (characterTitle) {
+    characterTitle.textContent = name;
   }
-});
+
+  if (characterDescription) {
+    characterDescription.textContent =
+      personality
+        ? "Personality: " + personality
+        : "Your new companion is ready to chat. ✨";
+  }
+}
