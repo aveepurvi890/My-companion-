@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Companion — Create Someone Who Remembers You</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a class="logo" href="#">✦ My Companion</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#vision">Vision</a>
+    </div>
+    <button class="login-btn" onclick="showMessage('Login will be added in the next version.')">Login</button>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">YOUR AI COMPANION, YOUR WAY</p>
+        <h1>Create someone<br><span>who remembers you.</span></h1>
+        <p class="hero-text">
+          Create your own AI person with a unique personality, story and memories.
+          Chat, connect and build a relationship that grows over time.
+        </p>
+        <div class="hero-buttons">
+          <button class="primary-btn" onclick="openCreator()">✦ Create Your Character</button>
+          <button class="secondary-btn" onclick="scrollToSection('how')">See How It Works →</button>
+        </div>
+        <div class="trust">
+          <span class="avatar">M</span><span class="avatar a2">L</span><span class="avatar a3">A</span>
+          <span>Build a companion that is truly yours.</span>
+        </div>
+      </div>
+
+      <div class="character-card">
+        <div class="glow"></div>
+        <div class="character-orb">✦</div>
+        <div class="character-info">
+          <span class="online">● Online</span>
+          <h2>Luna</h2>
+          <p>“Hey! I’m here. Tell me about your day. 😊”</p>
+          <div class="voice-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <p class="eyebrow">MORE THAN A CHATBOT</p>
+      <h2>Your companion. <span>Your way.</span></h2>
+      <p class="section-text">Design a digital person with a personality and memory that can grow with you.</p>
+
+      <div class="feature-grid">
+        <article class="feature"><div class="icon">♙</div><h3>Unique Personality</h3><p>Choose how your companion thinks, speaks, reacts and connects with you.</p></article>
+        <article class="feature"><div class="icon">🧠</div><h3>Memory That Lasts</h3><p>Important conversations, preferences and moments can become long-term memories.</p></article>
+        <article class="feature"><div class="icon">💬</div><h3>Real Conversations</h3><p>Move beyond scripted replies and build natural conversations over time.</p></article>
+        <article class="feature"><div class="icon">♬</div><h3>Voice & Expression</h3><p>A future-ready foundation for voice, expressions and richer interaction.</p></article>
+        <article class="feature"><div class="icon">◇</div><h3>Future 3D Presence</h3><p>One day, bring your companion beyond the screen and into your space.</p></article>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <p class="eyebrow">HOW IT WORKS</p>
+      <h2>From an idea to someone who knows you.</h2>
+      <div class="steps">
+        <div class="step"><b>01</b><h3>Create</h3><p>Give your companion a name, personality, interests and backstory.</p></div>
+        <div class="step"><b>02</b><h3>Chat</h3><p>Start conversations and discover their personality.</p></div>
+        <div class="step"><b>03</b><h3>Remember</h3><p>Important details can become memories for future conversations.</p></div>
+        <div class="step"><b>04</b><h3>Grow</h3><p>Over time, your companion becomes more personal and consistent.</p></div>
+      </div>
+    </section>
+
+    <section class="cta" id="vision">
+      <div>
+        <p class="eyebrow">THE LONG-TERM VISION</p>
+        <h2>From screen to real-world presence.</h2>
+        <p>Website → Mobile app → Voice → 3D character → Home AI companion.</p>
+      </div>
+      <button class="primary-btn" onclick="openCreator()">Start Building →</button>
+    </section>
+  </main>
+
+  <footer>© 2026 My Companion · Create. Connect. Remember.</footer>
+
+  <div class="modal" id="creatorModal">
+    <div class="creator">
+      <button class="close" onclick="closeCreator()">×</button>
+      <p class="eyebrow">FIRST STEP</p>
+      <h2>Create your character</h2>
+      <p class="section-text">This is a front-end demo. We'll connect the AI and memory system later.</p>
+
+      <label>Name
+        <input id="characterName" placeholder="e.g. Luna">
+      </label>
+
+      <label>Personality
+        <input id="personality" placeholder="e.g. caring, funny, confident">
+      </label>
+
+      <label>About them
+        <textarea id="backstory" placeholder="Tell us about your character..."></textarea>
+      </label>
+
+      <button class="primary-btn full" onclick="createCharacter()">Create Character</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
