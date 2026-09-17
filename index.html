@@ -1,1 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>My Companion</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f5ff;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            width: 100%;
+            padding: 18px 6%;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7138d8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #7138d8;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f4edff, #e9f7ff);
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 76px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #7138d8;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 0 auto 35px;
+            font-size: 19px;
+            color: #555;
+        }
+
+        .primary-btn {
+            border: none;
+            border-radius: 30px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #7138d8, #4db9ff);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(113,56,216,0.25);
+            transition: 0.2s;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 80px 6%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 45px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+        }
+
+        /* CHARACTER */
+
+        .character-section {
+            background: #eeeaff;
+            text-align: center;
+        }
+
+        .character-card {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .character-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            background: linear-gradient(135deg, #7138d8, #4db9ff);
+            color: white;
+        }
+
+        #characterDisplayName {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        #characterDisplayInfo {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* HOW IT WORKS */
+
+        .steps {
+            max-width: 850px;
+            margin: auto;
+            display: grid;
+            gap: 20px;
+        }
+
+        .step {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .step strong {
+            color: #7138d8;
+        }
+
+        /* CTA */
+
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, #7138d8, #4db9ff);
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            margin-bottom: 25px;
+        }
+
+        .cta .primary-btn {
+            background: white;
+            color: #7138d8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #17131f;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        /* MODALS */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.72);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 600px;
+            max-height: 92vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 20px 70px rgba(0,0,0,0.3);
+        }
+
+        .modal-box h2 {
+            margin-bottom: 8px;
+            color: #7138d8;
+        }
+
+        .modal-description {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            border: none;
+            background: transparent;
+            font-size: 28px;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #7138d8;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .save-message {
+            margin-top: 12px;
+            color: #238636;
+            font-weight: bold;
+        }
+
+        /* CHAT */
+
+        .chat-box {
+            max-width: 700px;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+        }
+
+        .chat-header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .small-btn {
+            border: none;
+            background: #eee;
+            padding: 8px 12px;
+            border-radius: 10px;
+        }
+
+        .small-btn:hover {
+            background: #ddd;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 5px;
+        }
+
+        .message {
+            max-width: 80%;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 16px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            margin-left: auto;
+            background: #7138d8;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.companion {
+            margin-right: auto;
+            background: #f0eef5;
+            color: #222;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-label {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            opacity: 0.7;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            outline: none;
+        }
+
+        .voice-btn,
+        .send-btn {
+            border: none;
+            border-radius: 15px;
+            min-width: 48px;
+            padding: 10px 15px;
+        }
+
+        .voice-btn {
+            background: #eee;
+        }
+
+        .send-btn {
+            background: #7138d8;
+            color: white;
+        }
+
+        .voice-btn.listening {
+            background: #ffdddd;
+        }
+
+        .chat-status {
+            min-height: 20px;
+            font-size: 13px;
+            color: #777;
+            padding-top: 8px;
+        }
+
+        /* FLOATING CHAT BUTTON */
+
+        #floatingChatButton {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 2000;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #7138d8, #4db9ff);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+            .nav-links {
+                display: none;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .hero {
+                min-height: 75vh;
+            }
+
+            .chat-box {
+                height: 90vh;
+            }
+
+            .modal-box {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .chat-input-area {
+                flex-wrap: wrap;
+            }
+
+            .chat-input {
+                width: 100%;
+                flex-basis: 100%;
+            }
+
+            .message {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+        <div class="logo">My Companion</div>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#character">Character</a></li>
+            <li><a href="#howItWorks">How It Works</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+
+            <h1>
+                Create Someone<br>
+                <span>Who Remembers You</span>
+            </h1>
+
+            <p>
+                Build your own AI companion with a personality,
+                relationship, memories and voice.
+            </p>
+
+            <button id="heroCreateButton" class="primary-btn">
+                Create Your Companion
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section id="features">
+
+        <h2 class="section-title">Your Companion, Your Way</h2>
+
+        <div class="features">
+
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Memory</h3>
+                <p>
+                    Your conversations can be remembered
+                    in this browser for your next conversation.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">❤️</div>
+                <h3>Relationship</h3>
+                <p>
+                    Choose how your companion relates to you.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎤</div>
+                <h3>Voice & Expression</h3>
+                <p>
+                    Talk using your microphone and hear
+                    your companion speak using browser voice.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CHARACTER -->
+
+    <section class="character-section" id="character">
+
+        <h2 class="section-title">Your Companion</h2>
+
+        <div class="character-card">
+
+            <div class="character-avatar">✨</div>
+
+            <h3 id="characterDisplayName">
+                No Companion Yet
+            </h3>
+
+            <p id="characterDisplayInfo">
+                Create your companion to get started.
+            </p>
+
+            <button id="characterCreateButton" class="primary-btn">
+                Create Character
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section id="howItWorks">
+
+        <h2 class="section-title">How It Works</h2>
+
+        <div class="steps">
+
+            <div class="step">
+                <strong>1. Create</strong>
+                <p>
+                    Give your companion a name, age, gender,
+                    relationship, personality, voice and backstory.
+                </p>
+            </div>
+
+            <div class="step">
+                <strong>2. Talk</strong>
+                <p>
+                    Open the chat and talk to your companion.
+                </p>
+            </div>
+
+            <div class="step">
+                <strong>3. Remember</strong>
+                <p>
+                    Your conversation history is stored locally
+                    in your browser so it can be loaded again.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta">
+
+        <h2>Ready to create your companion?</h2>
+
+        <p>
+            Build someone who feels like your own.
+        </p>
+
+        <button id="ctaCreateButton" class="primary-btn">
+            Start Building
+        </button>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        <p>© 2026 My Companion</p>
+    </footer>
+
+
+    <!-- CHARACTER CREATOR MODAL -->
+
+    <div id="creatorModal" class="modal">
+
+        <div class="modal-box">
+
+            <button id="closeCreatorButton" class="close-btn">
+                ×
+            </button>
+
+            <h2>Create Your Companion</h2>
+
+            <p class="modal-description">
+                Give your companion a personality and identity.
+            </p>
+
+            <div class="form-group">
+                <label for="characterName">Name</label>
+                <input
+                    type="text"
+                    id="characterName"
+                    placeholder="Enter companion name"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="characterAge">Age</label>
+                <input
+                    type="number"
+                    id="characterAge"
+                    min="1"
+                    max="150"
+                    placeholder="Enter age"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="characterGender">Gender</label>
+
+                <select id="characterGender">
+                    <option value="">Select gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary">Non-binary</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="characterRelationship">
+                    Relationship
+                </label>
+
+                <select id="characterRelationship">
+                    <option value="">Select relationship</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Best Friend">Best Friend</option>
+                    <option value="Sibling">Sibling</option>
+                    <option value="Mentor">Mentor</option>
+                    <option value="Partner">Partner</option>
+                    <option value="Companion">Companion</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="characterPersonality">
+                    Personality
+                </label>
+
+                <textarea
+                    id="characterPersonality"
+                    placeholder="Example: caring, funny, calm and supportive..."
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="characterVoice">
+                    Voice
+                </label>
+
+                <select id="characterVoice">
+                    <option value="neutral">Neutral</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="characterBackstory">
+                    Backstory
+                </label>
+
+                <textarea
+                    id="characterBackstory"
+                    placeholder="Tell your companion's story..."
+                ></textarea>
+            </div>
+
+            <button
+                id="saveCharacterButton"
+                class="primary-btn"
+                style="width:100%;"
+            >
+                Save Character
+            </button>
+
+            <div
+                id="characterSaveMessage"
+                class="save-message"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHAT MODAL -->
+
+    <div id="chatModal" class="modal">
+
+        <div class="modal-box chat-box">
+
+            <div class="chat-header">
+
+                <div>
+                    <h2 id="chatTitle">
+                        My Companion
+                    </h2>
+
+                    <small>
+                        Your personal conversation
+                    </small>
+                </div>
+
+                <div class="chat-header-buttons">
+
+                    <button
+                        id="clearChatButton"
+                        class="small-btn"
+                    >
+                        Clear
+                    </button>
+
+                    <button
+                        id="closeChatButton"
+                        class="small-btn"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="chatMessages"
+                class="chat-messages"
+            ></div>
+
+
+            <div
+                id="chatStatus"
+                class="chat-status"
+            ></div>
+
+
+            <div class="chat-input-area">
+
+                <button
+                    id="voiceButton"
+                    class="voice-btn"
+                    title="Voice input"
+                >
+                    🎤
+                </button>
+
+                <input
+                    type="text"
+                    id="chatInput"
+              
